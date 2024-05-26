@@ -1,0 +1,67 @@
+Implementation 1: Regular Function
+
+Array.prototype.calculate = function (logic) {
+  const output = [];
+  for (let i = 0; i < this.length; i++) {
+    output.push(logic(this[i]));
+  }
+  return output;
+};
+In this implementation, calculate is defined using a regular function (function). When you use a regular function, the value of this inside the function is dynamically scoped. This means that this refers to the object on which the method is called. In the context of Array.prototype.calculate, this correctly refers to the array on which calculate is invoked.
+
+Implementation 2: Arrow Function
+
+Array.prototype.calculate = (logic) => {
+  const output = [];
+  for (let i = 0; i < this.length; i++) {
+    output.push(logic(this[i]));
+  }
+  return output;
+};
+In this implementation, calculate is defined using an arrow function. Arrow functions have a lexical scope for this, meaning that this is determined by the surrounding context where the arrow function is defined, not where it is called. In this case, this does not refer to the array instance but rather to the global object (or undefined in strict mode) in the context where the arrow function is defined.
+
+Summary of Differences
+***********************************************Scope of this:*************************************************
+
+Regular Function (function): this refers to the array on which calculate is called.
+Arrow Function (=>): this is lexically scoped, and will not refer to the array but to the global context or the context where the arrow function is defined.
+Function Behavior:
+
+Regular Function: Works as expected, iterating over the array elements.
+Arrow Function: Will likely result in an error or incorrect behavior because this.length and this[i] will not refer to the array elements.
+
+Example Usage
+Given an array radius and a function area:
+
+const radius = [1, 2, 3];
+const area = (r) => Math.PI * r * r;
+===================================================================================
+Using the Regular Function Implementation:
+Array.prototype.calculate = function (logic) {
+  const output = [];
+  for (let i = 0; i < this.length; i++) {
+    output.push(logic(this[i]));
+  }
+  return output;
+};
+
+console.log(radius.calculate(area)); // Correctly calculates areas
+===================================================================================
+Using the Arrow Function Implementation:
+Array.prototype.calculate = (logic) => {
+  const output = [];
+  for (let i = 0; i < this.length; i++) {
+    output.push(logic(this[i]));
+  }
+  return output;
+};
+
+console.log(radius.calculate(area)); // Likely to throw an error or give incorrect results
+Conclusion
+The regular function implementation correctly binds this to the array instance, allowing the method to work as intended. The arrow function implementation does not bind this correctly in the context of the array method, leading to potential errors or unexpected behavior. Thus, for defining methods on prototypes, regular functions should be used to ensure the correct behavior of this.
+
+
+
+
+
+

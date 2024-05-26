@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>High order function</h1>
+    <script>
+      const radius = [1, 2, 3, 4];
+      //these three funtions are callback funtions (area, circumference, diameter)
+      //as they are passed as an argument to calculate().
+      const area = (radius) => {
+        return Math.PI * radius * radius;
+      };
+
+      const circumference = (radius) => {
+        return 2 * Math.PI * radius;
+      };
+
+      const diameter = (radius) => {
+        return 2 * radius;
+      };
+      //this is a higher order funtion. in it we are passing other funtions as an argument.
+      const calculate = (arr, logic) => {
+        const output = [];
+        for (let i = 0; i < arr.length; i++) {
+          output.push(logic(arr[i]));
+        }
+        return output;
+      };
+
+      //   console.log(calculate(radius, area));
+      //   console.log(calculate(radius, circumference));
+      //   console.log(calculate(radius, diameter));
+
+      console.log("using map");
+      console.log(radius.map(area)); // this is doing the same job as the above process.
+
+      Array.prototype.calculate = function (logic) {
+        const output = [];
+        for (let i = 0; i < this.length; i++) {
+          output.push(logic(this[i]));
+        }
+        return output;
+      };
+      console.log("converted a normal method similar to map");
+      console.log(radius.calculate(area));
+
+      //Individual functions.....................................................................................
+      // const calculateArea = (radius)=>{
+      //     const output=[];
+      //     for(let i=0; i<radius.length; i++){
+      //         output.push(Math.PI * radius[i] * radius[i]);
+      //     }
+      //     return output;
+      // }
+
+      // const calculateCircumference = (radius)=>{
+      //     const output=[];
+      //     for(let i=0; i<radius.length; i++){
+      //         output.push(2*Math.PI * radius[i] );
+      //     }
+      //     return output;
+      // }
+
+      // const calculateDiameter = (radius)=>{
+      //     const output=[];
+      //     for(let i=0; i<radius.length; i++){
+      //         output.push(2*radius[i]);
+      //     }
+      //     return output;
+      // }
+    </script>
+  </body>
+</html>
