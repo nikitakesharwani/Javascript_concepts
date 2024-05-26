@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>All about Funtions</h1>
+    <script>
+      //Function Statement aka Function Declaration.
+      console.log(
+        "a is called before function declaration, is valid because of Hoisting"
+      );
+      a();
+      function a() {
+        console.log("a is called");
+      }
+      console.log(
+        "a is called after function declaration, is valid because of Hoisting"
+      );
+      a();
+
+      //b(); //this will throw Uncaught TypeError: b is not a function
+      //Function Expression
+      var b = function () {
+        console.log("b is called");
+      };
+      console.log(
+        "b is called, only this is valid because we cannot call a function before declartion like in expessions"
+      );
+      b();
+
+      //Named Function Expression.
+      var c = function xyz() {
+        console.log(
+          xyz + " -----xyz is called(a function calling itself)---- "
+        ); //this is valid we can acess xyz inside the function within local scope.
+      };
+
+      c(); //valid.
+      //xyz(); //Uncaught ReferenceError: xyz is not defined, since it is not global.
+
+      //parameter vs argument.
+      //   var d = function (param1) {
+      //     return function () {};
+
+      //   };
+      //   d(1); //this is argument.
+
+      //returning a funtion.
+      var d = function (param1) {
+        return function () {};
+        //return function xyz() {}; //is valid.
+      };
+
+      //   function abc(){
+
+      //   }
+      //   console.log(d(abc)); //valid
+      console.log(d());
+    </script>
+  </body>
+</html>
